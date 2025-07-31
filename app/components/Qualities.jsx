@@ -13,7 +13,7 @@ const Qualities = () => {
         Here is a list of my top qualities.
       </motion.p>
 
-      <motion.div initial = {{opacity:0}} whileInView = {{opacity:1}} transition = {{duration:0.6, delay:0.9}} className='grid grid-cols-4 gap-6 my-10'>
+      <motion.div initial = {{opacity:0}} whileInView = {{opacity:1}} transition = {{duration:0.6, delay:0.9}} className='grid grid-cols-auto gap-6 my-10'>
         {serviceData.map(({icon, title, description},index)=>(
             <motion.div  whileHover = {{scale:1.05}}  key={index} className='border border-gray-400 rounded-lg px-8 py-12 hover:shadow-lg hover:shadow-black'>
                 <Image src={icon} className='w-10'/>

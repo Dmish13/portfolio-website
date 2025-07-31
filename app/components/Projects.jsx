@@ -13,7 +13,7 @@ const Projects = () => {
         Here is a list of my projects (work in progress).
       </motion.p>
 
-      <motion.div initial = {{opacity:0}} whileInView = {{opacity:1}} transition = {{duration:0.6, delay:0.9}} className='grid grid-cols-4 my-10 gap-5'>
+      <motion.div initial = {{opacity:0}} whileInView = {{opacity:1}} transition = {{duration:0.6, delay:0.9}} className='grid grid-cols-auto my-10 gap-5'>
         {workData.map((project,index)=>(
           <a target = "_blank" href = {project.link}>
             <motion.div whileHover = {{scale:1.05}} transition = {{duration:0.3}} key={index} className = 'aspect-square bg-no-repeat bg-cover bg-center rounded-lg relative cursor-pointer group' style={{backgroundImage:`url(${project.bgImage})`}}>
