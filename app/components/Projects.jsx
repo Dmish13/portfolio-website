@@ -33,7 +33,7 @@ const Projects = () => {
         ))}
       </motion.div>
 
-        <a href = "https://github.com/Dmish13" target = "_blank" className='w-max flex items-center justify-center gap-2 text-gray-700 border-[0.5px] border-gray-700 rounded-full py-3 px-10 mx-auto my-20 hover:bg-gray-100 duration-500'>
+        <a href = "https://github.com/Dmish13" target = "_blank" className='w-max flex items-center justify-center gap-2 text-gray-700 border-[0.5px] border-gray-700 rounded-full py-3 px-10 mx-auto my-20 hover:bg-gray-200 duration-500'>
           Show More <Image src = {assets.right_arrow_bold} alt= 'Right Arrow' className='w-4'></Image>
         </a>
       

@@ -37,15 +37,15 @@ const Navbar = () => {
         </a>
 
         <ul className = {`hidden md:flex items-center gap-6 lg:gap-8 rounded-full px-12 py-3 ${isScroll ? "": "bg-white shadow-sm bg-opacity-50"}`}>
-            <li><a className = 'font-Ovo' href="#top">Home</a></li>
-            <li><a className = 'font-Ovo' href="#about">About Me</a></li>
-            <li><a className = 'font-Ovo' href="#qualities">My Top Qualities</a></li>
-            <li><a className = 'font-Ovo' href="#projects">Projects</a></li>
-            <li><a className = 'font-Ovo' href="#contact">Contact Me</a></li>
+            <li><a className = 'font-Ovo hover:bg-gray-200 transtion-colors duration-200 rounded-md' href="#top">Home</a></li>
+            <li><a className = 'font-Ovo hover:bg-gray-200 transtion-colors duration-200 rounded-md' href="#about">About Me</a></li>
+            <li><a className = 'font-Ovo hover:bg-gray-200 transtion-colors duration-200 rounded-md' href="#qualities">My Top Qualities</a></li>
+            <li><a className = 'font-Ovo hover:bg-gray-200 transtion-colors duration-200 rounded-md' href="#projects">Projects</a></li>
+            <li><a className = 'font-Ovo hover:bg-gray-200 transtion-colors duration-200 rounded-md' href="#contact">Contact Me</a></li>
         </ul>
 
         <div className='flex items-center gap-4'>
-            <a href="#contact" className='hidden lg:flex items-center gap-3 px-10 border border-gray-500 rounded-full ml-4 font-Ovo'>Contact<Image src={assets.arrow_icon} alt = "" className = 'w-3'></Image></a>
+            <a href="#contact" className='hidden lg:flex items-center gap-3 px-10 border border-gray-500 rounded-full ml-4 font-Ovo hover:bg-gray-200 transition-colors duration-200'>Contact<Image src={assets.arrow_icon} alt = "" className = 'w-3'></Image></a>
 
             <button className='block md:hidden ml-3 cursor-pointer' onClick={openMenu}>
                 <Image src={assets.menu_black} alt='' className = 'w-6'/>
@@ -56,11 +56,11 @@ const Navbar = () => {
             <div className = 'absolute right-6 top-6 cursor-pointer' onClick={closeMenu}>
                 <Image src={assets.close_black} alt='' className='w-5 cursor-pointer'/>
             </div>
-            <li><a className = 'font-Ovo' onClick={closeMenu} href="#top">Home</a></li>
-            <li><a className = 'font-Ovo' onClick={closeMenu} href="#about">About Me</a></li>
-            <li><a className = 'font-Ovo' onClick={closeMenu} href="#qualities">My Top Qualities</a></li>
-            <li><a className = 'font-Ovo' onClick={closeMenu} href="#projects">Projects</a></li>
-            <li><a className = 'font-Ovo' onClick={closeMenu} href="#contact">Contact Me</a></li>
+            <li><a className = 'font-Ovo hover:bg-gray-200 transtion-colors duration-200 rounded-md' onClick={closeMenu} href="#top">Home</a></li>
+            <li><a className = 'font-Ovo hover:bg-gray-200 transtion-colors duration-200 rounded-md' onClick={closeMenu} href="#about">About Me</a></li>
+            <li><a className = 'font-Ovo hover:bg-gray-200 transtion-colors duration-200 rounded-md' onClick={closeMenu} href="#qualities">My Top Qualities</a></li>
+            <li><a className = 'font-Ovo hover:bg-gray-200 transtion-colors duration-200 rounded-md' onClick={closeMenu} href="#projects">Projects</a></li>
+            <li><a className = 'font-Ovo hover:bg-gray-200 transtion-colors duration-200 rounded-md' onClick={closeMenu} href="#contact">Contact Me</a></li>
         </ul>
     </nav>
     </>
