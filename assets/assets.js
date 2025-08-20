@@ -99,7 +99,7 @@ export const workData = [
         title: 'Weather App',
         description: 'Type in a City, Get the Weather',
         bgImage: './weatherapp.png',
-        link: 'https://dmish13.github.io/weather-app/weather.html'
+        link: 'https://dmish13.github.io/weather-app/frontend/weather.html'
     },
     {
         title: 'To-Do List App',
