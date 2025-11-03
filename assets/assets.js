@@ -44,6 +44,12 @@ import hardwork from './hardwork.png'
 import commit from './commit.png'
 import teamwork from './teamwork.png'
 import leadership from './leadership.png'
+import github from './github.jpg'
+import linux from './linux.png'
+import hadoop from './hadoop.png'
+import hive from './hive.png'
+import pig from './pig.png'
+import spark from './spark.png'
 
 export const assets = {
     user_image,
@@ -91,7 +97,13 @@ export const assets = {
     hardwork,
     commit,
     teamwork,
-    leadership
+    leadership,
+    github,
+    linux,
+    hadoop,
+    hive,
+    pig,
+    spark
 };
 
 export const workData = [
@@ -129,11 +141,11 @@ export const serviceData = [
 ]
 
 export const infoList = [
-    { icon: assets.code_icon, iconDark: assets.code_icon_dark, title: 'Programming Languages', description: 'HTML, CSS, JS, React, C/C++, Python, Java, Arduino' },
+    { icon: assets.code_icon, iconDark: assets.code_icon_dark, title: 'Programming Languages', description: 'HTML, CSS, JS, React, Next.js, Express.js, C/C++, Python, Java, Arduino' },
     { icon: assets.edu_icon, title: 'Education', description: 'B.S. in Computer Science (Expected Graduation: May 2027)' },
-    { icon: assets.project_icon, title: 'Projects', description: 'Built more than 5 projects (notable projects listed in projects section)' }
+    { icon: assets.project_icon, title: 'Projects', description: 'Built more than 20 projects (notable projects listed in projects section)' }
 ];
 
 export const toolsData = [
-    assets.vscode, assets.vs, assets.mongodb, assets.mysql, assets.aws, assets.git
+    assets.vscode, assets.vs, assets.mongodb, assets.mysql, assets.aws, assets.git, assets.github, assets.linux, assets.hadoop, assets.hive, assets.pig, assets.spark
 ];
