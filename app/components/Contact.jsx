@@ -10,38 +10,28 @@ const Contact = () => {
     event.preventDefault()
     setResult("Sending...")
 
-    // get form data
     const formData = new FormData(event.target)
-    const data = {
-      name: formData.get("name"),
-      email: formData.get("email"),
-      message: formData.get("message"),
-    }
 
-    // send to your API route
     try {
-    const response = await fetch("/api/contact", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    })
+      const response = await fetch(`https://formspree.io/f/${process.env.NEXT_PUBLIC_FORMSPREE_ID}`, {
+        method: "POST",
+        body: formData,
+        headers: {
+          'Accept': 'application/json'
+        }
+      })
 
-    const resData = await response.json()
-
-    if (response.ok && resData.success) {
-      setResult("Form Submitted Successfully ✅")
-      event.target.reset()
-    } else {
-      setResult("Something went wrong ❌")
-      console.error(resData)
+      if (response.ok) {
+        setResult("Form Submitted Successfully ✅")
+        event.target.reset()
+      } else {
+        setResult("Something went wrong ❌")
+      }
+    } catch (err) {
+      console.error("Error submitting form:", err)
+      setResult("Server error ❌")
     }
-  } catch (err) {
-    console.error("Error submitting form:", err)
-    setResult("Server error ❌")
   }
-}
 
   return (
     <motion.div 
