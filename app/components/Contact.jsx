@@ -142,7 +142,7 @@ const Contact = () => {
               <motion.p 
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
-                className='mt-6 text-center font-medium text-gray-700'
+                className='mt-6 text-center font-semibold text-lg text-white'
               >
                 {result}
               </motion.p>

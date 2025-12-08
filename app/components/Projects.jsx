@@ -7,7 +7,7 @@ const Projects = () => {
   return (
     <motion.div initial = {{opacity:0}} whileInView = {{opacity:1}} transition = {{duration:1}}id="projects" className = 'w-full px-[-12%] py-10 scroll-mt-20'>
       <motion.h4 initial = {{opacity:0, y:-20}} whileInView = {{opacity:1, y:0}} transition = {{duration:0.5, delay:0.3}} className='text-center mb-2 text-lg font-Ovo text-gray-600 dark:text-gray-400'>What I Offer</motion.h4>
-      <motion.h2 initial = {{opacity:0, y:-20}} whileInView = {{opacity:1, y:0}} transition = {{duration:0.5, delay:0.5}} className= 'text-center text-5xl font-Ovo text-gray-900 dark:text-gray-100'>My Projects</motion.h2>
+      <motion.h2 initial = {{opacity:0, y:-20}} whileInView = {{opacity:1, y:0}} transition = {{duration:0.5, delay:0.5}} className= 'text-center text-5xl font-Ovo font-bold text-gray-900 dark:text-gray-100'>My Projects</motion.h2>
 
       <motion.p initial = {{opacity:0}} whileInView = {{opacity:1}} transition = {{duration:0.5, delay:0.7}}className = 'text-center max-w-2xl mx-auto mt-5 mb-12 font-Ovo text-gray-700 dark:text-gray-300'>
         Here is a list of my projects (work in progress).
