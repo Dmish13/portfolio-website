@@ -6,9 +6,12 @@ import Qualities from "./components/Qualities";
 import Contact from "./components/Contact";
 import Footer from "./components/Footer";
 import Projects from "./components/Projects";
+import ChatBot from "./components/ChatBot";
+import { ThemeProvider } from "./context/ThemeContext";
+
 export default function Home() {
   return (
-    <>
+    <ThemeProvider>
       <Navbar></Navbar>
       <Header></Header>
       <About/>
@@ -16,6 +19,7 @@ export default function Home() {
       <Projects/>
       <Contact/>
       <Footer/>
-    </>
+      <ChatBot/>
+    </ThemeProvider>
   );
 }

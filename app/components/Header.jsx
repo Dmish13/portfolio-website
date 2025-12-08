@@ -15,14 +15,14 @@ const Header = () => {
     <motion.h1 initial = {{y:-30, opacity:0}} whileInView={{y:0, opacity:1}} transition={{duration:0.8, delay:0.5}} className='text-2xl sm:text-3xl lg:text-[30px] font-Ovo'>
         Computer Science Student at University of South Florida
     </motion.h1>
-    <motion.p initial = {{opacity:0}} whileInView= {{opacity:1}} transition={{duration:0.6, delay:0.7}}className = 'max-w-2xl mx-auto font-Ovo'>
+    <motion.p initial = {{opacity:0}} whileInView= {{opacity:1}} transition={{duration:0.6, delay:0.7}}className = 'max-w-2xl mx-auto font-Ovo text-gray-700 dark:text-gray-300'>
         I am a computer science student at USF looking for software engineering and/or data analyst internships.
     </motion.p>
     <div className= 'flex flex-col sm:flex-row items-center gap-4 mt-4'>
-        <motion.a initial = {{y:-20, opacity:0}} whileInView={{y:0,opacity:1}} transition = {{duration:0.6, delay:1}} href="#contact" className='px-10 py-3 border rounded-full border-white bg-black text-white flex items-center gap-2 hover:bg-gray-800 transition-colors duration-200'>
+        <motion.a initial = {{y:-20, opacity:0}} whileInView={{y:0,opacity:1}} transition = {{duration:0.6, delay:1}} href="#contact" className='px-10 py-3 border rounded-full border-white bg-black dark:bg-purple-600 text-white flex items-center gap-2 hover:bg-gray-800 dark:hover:bg-purple-700 transition-colors duration-200'>
             Contact Me <Image src={assets.right_arrow_white} alt='' className='w-4'/></motion.a>
-        <motion.a  initial = {{y:-20, opacity:0}} whileInView={{y:0,opacity:1}} transition = {{duration:0.6, delay:1.2}} href="/D_MISHERKY_RESUME_2025.pdf" download className='px-10 py-3 border rounded-full border-gray-500 flex items-center gap-2 hover:bg-gray-200 transition-colors duration-200'>
-        My Resume <Image src={assets.download_icon} alt='' className='w-4'/></motion.a>
+        <motion.a  initial = {{y:-20, opacity:0}} whileInView={{y:0,opacity:1}} transition = {{duration:0.6, delay:1.2}} href="/D_MISHERKY_RESUME_2025.pdf" download className='px-10 py-3 border rounded-full border-gray-500 dark:border-gray-400 flex items-center gap-2 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-200'>
+        My Resume <Image src={assets.download_icon} alt='' className='w-4 dark:invert'/></motion.a>
     </div>
     </div>
   )

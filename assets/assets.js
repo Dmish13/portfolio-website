@@ -34,7 +34,7 @@ import right_arrow from './right-arrow.png';
 import send_icon from './send-icon.png';
 import right_arrow_bold from './right-arrow-bold.png';
 import right_arrow_bold_dark from './right-arrow-bold-dark.png';
-import Profile from './Profile.png'
+import Profile from './Profile.jpg'
 import light100 from './light100.png'
 import profile_img from './profile_img.jpg'
 import vs from './vs.png'
@@ -114,22 +114,22 @@ export const workData = [
         link: 'https://dmish13.github.io/weather-app/frontend/weather.html'
     },
     {
-        title: 'To-Do List App',
-        description: 'Create Your Own To-Do List',
-        bgImage: './todo.png',
-        link: 'https://dmish13.github.io/to-do/'
+        title: 'Note-A-Bull (not deployed)',
+        description: 'Note Sharing Application',
+        bgImage: './notebull.png',
+        link: 'https://github.com/Florian-Celibashi/Note-A-Bull'
     },
     {
-        title: 'Stopwatch',
-        description: 'Fully Functioning Stopwatch with a Lap Feature',
-        bgImage: './stopwatch.png',
-        link: 'https://dmish13.github.io/Stopwatch/'
+        title: 'SHPE USF Website',
+        description: 'SHPE USF Chapter Website',
+        bgImage: './shpe.png',
+        link: 'https://shpeusf.com/'
     },
     {
-        title: 'Rock Paper Scissors App',
-        description: 'Play Rock Paper Scissors with a Computer',
-        bgImage: './rps.png',
-        link : 'https://dmish13.github.io/rock-paper-scissors/rps.html'
+        title: 'SOAR USF Website',
+        description: 'SOAR USF Chapter Website',
+        bgImage: './soar.png',
+        link : 'https://usfsoar.framer.website/'
     },
 ]
 
