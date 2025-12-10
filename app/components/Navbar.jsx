@@ -40,11 +40,16 @@ const Navbar = () => {
             <li><a className = 'font-Ovo hover:bg-gray-700 transtion-colors duration-200 rounded-md px-2 lg:px-3 py-1 whitespace-nowrap' href="#about">About</a></li>
             <li><a className = 'font-Ovo hover:bg-gray-700 transtion-colors duration-200 rounded-md px-2 lg:px-3 py-1 whitespace-nowrap' href="#qualities">Qualities</a></li>
             <li><a className = 'font-Ovo hover:bg-gray-700 transtion-colors duration-200 rounded-md px-2 lg:px-3 py-1 whitespace-nowrap' href="#projects">Projects</a></li>
-            <li><a className = 'font-Ovo hover:bg-gray-700 transtion-colors duration-200 rounded-md px-2 lg:px-3 py-1 whitespace-nowrap' href="#contact">Contact</a></li>
         </ul>
 
         <div className='flex items-center gap-4'>
-            <a href="#contact" className='hidden lg:flex items-center gap-3 btn'>Contact<Image src={assets.arrow_icon} alt = "" className = 'w-3 invert'></Image></a>
+            {/* Desktop contact button removed - keeping header's purple Contact button instead */}
+
+            {/* Desktop contact button (visible md+), matches mobile popup style */}
+            <a href="#contact" className='hidden md:flex btn items-center justify-center gap-2 mr-2'>
+                Contact
+                <Image src={assets.arrow_icon} alt='' className='w-3 invert' />
+            </a>
 
             <button className='block md:hidden ml-3 cursor-pointer' onClick={openMenu}>
                 <Image src={assets.menu_black} alt='' className = 'w-6 invert'/>
@@ -59,7 +64,7 @@ const Navbar = () => {
             <li><a className = 'font-Ovo text-gray-100 hover:bg-gray-700 transtion-colors duration-200 rounded-md px-3 py-1 block' onClick={closeMenu} href="#about">About Me</a></li>
             <li><a className = 'font-Ovo text-gray-100 hover:bg-gray-700 transtion-colors duration-200 rounded-md px-3 py-1 block' onClick={closeMenu} href="#qualities">My Top Qualities</a></li>
             <li><a className = 'font-Ovo text-gray-100 hover:bg-gray-700 transtion-colors duration-200 rounded-md px-3 py-1 block' onClick={closeMenu} href="#projects">Projects</a></li>
-            <li><a className = 'font-Ovo text-gray-100 block btn' onClick={closeMenu} href="#contact">Contact Me</a></li>
+            <li><a className = 'font-Ovo text-gray-100 block btn flex items-center justify-center gap-2' onClick={closeMenu} href="#contact">Contact<Image src={assets.arrow_icon} alt='' className='w-3 invert' /></a></li>
         </ul>
     </nav>
     </>
