@@ -122,7 +122,7 @@ const Contact = () => {
               whileTap={{ scale: 0.95 }}
               transition={{ duration: 0.3 }}
               type="submit"
-              className='py-4 px-10 flex items-center justify-center gap-3 bg-gradient-to-r from-purple-600 to-purple-800 text-white rounded-full mx-auto hover:from-purple-700 hover:to-purple-900 shadow-lg hover:shadow-xl transition-all duration-500 cursor-pointer font-semibold'
+              className='btn mx-auto'
             >
               Submit Now
               <Image src={assets.right_arrow_white} alt='arrow' className='w-4' />

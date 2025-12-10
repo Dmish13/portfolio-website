@@ -3,3 +3,35 @@
 *{
   font-family: outfit,ovo;
 }
+
+@layer components {
+  .btn {
+    @apply inline-flex items-center justify-center gap-3 px-6 py-2 rounded-full font-medium text-white bg-gradient-to-r from-purple-600 to-purple-800 shadow-lg transition-transform duration-200 transform;
+  }
+
+  .btn:hover {
+    @apply -translate-y-0.5 scale-105 shadow-2xl;
+  }
+
+  .btn:active {
+    @apply translate-y-0 scale-100;
+  }
+
+  /* Circular variant for floating buttons */
+  .btn-circle {
+    @apply inline-flex items-center justify-center w-16 h-16 p-0 rounded-full bg-gradient-to-r from-purple-600 to-purple-800 text-white shadow-xl transition-transform duration-200 transform;
+  }
+
+  .btn-circle:hover {
+    @apply -translate-y-0.5 scale-105 shadow-2xl;
+  }
+}
+
+/* Simple line-clamp utility to add ellipsis after N lines (works in modern browsers) */
+.line-clamp-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}

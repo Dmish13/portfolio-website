@@ -44,14 +44,14 @@ const Navbar = () => {
         </ul>
 
         <div className='flex items-center gap-4'>
-            <a href="#contact" className='hidden lg:flex items-center gap-3 px-8 py-2.5 border-2 border-gray-300 rounded-full font-Ovo bg-gray-800/80 hover:bg-gray-700 transition-all duration-200 text-gray-100 font-medium shadow-sm'>Contact<Image src={assets.arrow_icon} alt = "" className = 'w-3 invert'></Image></a>
+            <a href="#contact" className='hidden lg:flex items-center gap-3 btn'>Contact<Image src={assets.arrow_icon} alt = "" className = 'w-3 invert'></Image></a>
 
             <button className='block md:hidden ml-3 cursor-pointer' onClick={openMenu}>
                 <Image src={assets.menu_black} alt='' className = 'w-6 invert'/>
             </button>
         </div>
 
-        <ul ref={sideMenuRef} className='flex md:hidden flex-col gap-4 py-20 px-10 fixed -right-64 top-0 bottom-0 w-64 z-50 h-screen bg-gray-900 transition duration-500'>
+        <ul ref={sideMenuRef} className='flex md:hidden flex-col gap-4 py-20 px-10 fixed -right-64 top-0 bottom-0 w-64 z-50 h-screen bg-gray-900 transition duration-200'>
             <div className = 'absolute right-6 top-6 cursor-pointer' onClick={closeMenu}>
                 <Image src={assets.close_black} alt='' className='w-5 cursor-pointer invert'/>
             </div>
@@ -59,7 +59,7 @@ const Navbar = () => {
             <li><a className = 'font-Ovo text-gray-100 hover:bg-gray-700 transtion-colors duration-200 rounded-md px-3 py-1 block' onClick={closeMenu} href="#about">About Me</a></li>
             <li><a className = 'font-Ovo text-gray-100 hover:bg-gray-700 transtion-colors duration-200 rounded-md px-3 py-1 block' onClick={closeMenu} href="#qualities">My Top Qualities</a></li>
             <li><a className = 'font-Ovo text-gray-100 hover:bg-gray-700 transtion-colors duration-200 rounded-md px-3 py-1 block' onClick={closeMenu} href="#projects">Projects</a></li>
-            <li><a className = 'font-Ovo text-gray-100 hover:bg-gray-700 transtion-colors duration-200 rounded-md px-3 py-1 block' onClick={closeMenu} href="#contact">Contact Me</a></li>
+            <li><a className = 'font-Ovo text-gray-100 block btn' onClick={closeMenu} href="#contact">Contact Me</a></li>
         </ul>
     </nav>
     </>

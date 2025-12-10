@@ -13,12 +13,12 @@ const Projects = () => {
         Here is a list of my projects (work in progress).
       </motion.p>
 
-      <motion.div initial = {{opacity:0}} whileInView = {{opacity:1}} transition = {{duration:0.6, delay:0.9}} className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 my-10 gap-5 max-w-7xl mx-auto px-4'>
+      <motion.div initial = {{opacity:0}} whileInView = {{opacity:1}} transition = {{duration:0.6, delay:0.9}} className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 my-10 gap-5 max-w-7xl mx-auto px-4'>
         {workData.map((project,index)=>(
           <a key={index} target = "_blank" href = {project.link}>
-            <motion.div whileHover = {{scale:1.05}} transition = {{duration:0.3}} className = 'aspect-square bg-no-repeat bg-cover bg-center rounded-lg relative cursor-pointer group shadow-lg hover:shadow-2xl overflow-hidden' style={{backgroundImage:`url(${project.bgImage})`}}>
-                <div className='absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500'></div>
-                <motion.div className='bg-white dark:bg-gray-800 w-10/12 rounded-md absolute bottom-5 left-1/2 -translate-x-1/2 py-3 px-5 flex items-center justify-between duration-500 group-hover:bottom-7 shadow-xl'>
+                <motion.div whileHover = {{scale:1.05}} transition = {{duration:0.3}} className = 'aspect-square sm:min-h-[260px] md:min-h-[240px] bg-no-repeat bg-cover bg-center rounded-lg relative cursor-pointer group shadow-lg hover:shadow-2xl overflow-hidden' style={{backgroundImage:`url(${project.bgImage})`}}>
+                <div className='absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-200'></div>
+                <motion.div className='bg-white dark:bg-gray-800 w-11/12 sm:w-10/12 rounded-md absolute bottom-5 left-1/2 -translate-x-1/2 py-3 px-5 flex items-center justify-between duration-200 group-hover:bottom-8 shadow-xl'>
                 <motion.div>
                     <motion.h2 className='font-semibold text-gray-900 dark:text-gray-100'>{project.title}</motion.h2>
                     <motion.p className='text-sm text-gray-700 dark:text-gray-300'>{project.description}</motion.p>
@@ -34,7 +34,7 @@ const Projects = () => {
         ))}
       </motion.div>
 
-        <a href = "https://github.com/Dmish13" target = "_blank" className='w-max flex items-center justify-center gap-2 text-gray-900 dark:text-gray-100 border-2 border-gray-700 dark:border-gray-300 rounded-full py-3 px-10 mx-auto my-20 hover:bg-gray-200 dark:hover:bg-gray-700 duration-500 font-medium'>
+        <a href = "https://github.com/Dmish13" target = "_blank" className='btn w-max mx-auto my-20 flex items-center gap-2'>
           Show More <Image src = {assets.right_arrow_bold} alt= 'Right Arrow' className='w-4 dark:invert'></Image>
         </a>
       

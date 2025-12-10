@@ -58,7 +58,7 @@ const ChatBot = () => {
       {/* Floating Chat Button */}
       <motion.button
         onClick={() => setIsOpen(!isOpen)}
-        className='fixed bottom-6 right-6 z-50 w-16 h-16 bg-white rounded-full shadow-lg hover:shadow-xl flex items-center justify-center transition-all duration-300 hover:scale-110 border-2 border-purple-200'
+        className='fixed bottom-6 right-6 z-50 w-16 h-16 bg-white rounded-full shadow-lg flex items-center justify-center transition-all duration-300 hover:shadow-xl border-2 border-purple-200'
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.9 }}
       >
@@ -142,7 +142,7 @@ const ChatBot = () => {
                 <button
                   type='submit'
                   disabled={isLoading || !input.trim()}
-                  className='bg-purple-600 text-white px-6 py-2 rounded-full hover:bg-purple-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed font-medium text-sm'
+                  className='btn disabled:opacity-50 disabled:cursor-not-allowed'
                 >
                   Send
                 </button>
