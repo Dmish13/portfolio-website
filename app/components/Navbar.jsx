@@ -7,6 +7,8 @@ import { useRef, useState, useEffect } from 'react'
 
 const Navbar = () => {
     const [isScroll, setIsScroll] = useState(false);
+    const [isVisible, setIsVisible] = useState(true);
+    const [lastScrollY, setLastScrollY] = useState(0);
     const sideMenuRef = useRef();
     
     const openMenu = () =>{
@@ -18,19 +20,35 @@ const Navbar = () => {
     }
 
     useEffect(()=>{
-        window.addEventListener('scroll', ()=>{
-            if(scrollY>50){
-                setIsScroll(true)
+        const handleScroll = () => {
+            const currentScrollY = window.scrollY;
+            
+            // Update background blur state
+            if(currentScrollY > 50){
+                setIsScroll(true);
+            } else {
+                setIsScroll(false);
             }
-            else{
-                setIsScroll(false)
+            
+            // Show/hide navbar based on scroll direction
+            if (currentScrollY > lastScrollY && currentScrollY > 100) {
+                // Scrolling down & past threshold - hide navbar
+                setIsVisible(false);
+            } else {
+                // Scrolling up or at top - show navbar
+                setIsVisible(true);
             }
-        })
-    },[])
+            
+            setLastScrollY(currentScrollY);
+        };
+        
+        window.addEventListener('scroll', handleScroll);
+        return () => window.removeEventListener('scroll', handleScroll);
+    },[lastScrollY])
 
   return (
     <>
-    <nav className={`w-full fixed px-5 lg:px-8 xl:px-[8%] py-4 flex items-center justify-between z-50 transition-all ${isScroll ? "bg-gray-900/95 backdrop-blur-lg shadow-lg":"bg-gray-900/90"}`}>
+    <nav className={`w-full fixed px-5 lg:px-8 xl:px-[8%] py-4 flex items-center justify-between z-50 transition-all duration-300 ${isScroll ? "bg-gray-900/95 backdrop-blur-lg shadow-lg":"bg-gray-900/90"} ${isVisible ? 'translate-y-0' : '-translate-y-full'}`}>
         <a href="#top">
             <Image src ={assets.light100} alt="" className = 'w-15 cursor-pointer mr-14'/>
         </a>
