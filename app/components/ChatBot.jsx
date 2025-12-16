@@ -13,6 +13,10 @@ const ChatBot = () => {
   const [input, setInput] = useState('')
   const [isLoading, setIsLoading] = useState(false)
   const messagesEndRef = useRef(null)
+  const [isCompact, setIsCompact] = useState(false)
+  const [navHeight, setNavHeight] = useState(0)
+  const [isMobile, setIsMobile] = useState(false)
+  const [navIsOpen, setNavIsOpen] = useState(false)
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
@@ -21,6 +25,123 @@ const ChatBot = () => {
   useEffect(() => {
     scrollToBottom()
   }, [messages])
+
+  // Keep a reliable viewport unit for mobile (handles keyboard on Android/Samsung)
+  useEffect(() => {
+    const setVh = () => {
+      const vh = window.visualViewport ? window.visualViewport.height : window.innerHeight
+      document.documentElement.style.setProperty('--vh', `${vh * 0.01}px`)
+    }
+
+    // When viewport changes (keyboard opens/closes), update and scroll
+    const onVResize = () => {
+      setVh()
+      if (isOpen) setTimeout(scrollToBottom, 220)
+    }
+
+    setVh()
+    window.addEventListener('resize', setVh)
+    window.addEventListener('orientationchange', setVh)
+    if (window.visualViewport) window.visualViewport.addEventListener('resize', onVResize)
+
+    return () => {
+      window.removeEventListener('resize', setVh)
+      window.removeEventListener('orientationchange', setVh)
+      if (window.visualViewport) window.visualViewport.removeEventListener('resize', onVResize)
+    }
+  }, [isOpen])
+
+  // Detect very narrow screens or landscape with low height and enable compact/fullscreen chat
+  useEffect(() => {
+    const checkCompact = () => {
+      const w = window.innerWidth
+      const h = window.innerHeight
+      const isNarrow = w <= 360
+      const isLandscapeCompact = w > h && h <= 420
+      setIsCompact(isNarrow || isLandscapeCompact)
+    }
+
+    checkCompact()
+    window.addEventListener('resize', checkCompact)
+    window.addEventListener('orientationchange', checkCompact)
+    if (window.visualViewport) window.visualViewport.addEventListener('resize', checkCompact)
+
+    return () => {
+      window.removeEventListener('resize', checkCompact)
+      window.removeEventListener('orientationchange', checkCompact)
+      if (window.visualViewport) window.visualViewport.removeEventListener('resize', checkCompact)
+    }
+  }, [])
+
+  // Detect general mobile viewport (phones/tablets narrow screens)
+  useEffect(() => {
+    const mq = window.matchMedia('(max-width: 768px)')
+    const setMobile = () => setIsMobile(mq.matches)
+    setMobile()
+    try { mq.addEventListener('change', setMobile) } catch { mq.addListener(setMobile) }
+    return () => { try { mq.removeEventListener('change', setMobile) } catch { mq.removeListener(setMobile) } }
+  }, [])
+
+  // Measure navbar height so the chat doesn't overlap it in landscape
+  useEffect(() => {
+    const measureNav = () => {
+      const nav = document.querySelector('nav')
+      const h = nav ? nav.getBoundingClientRect().height : 0
+      setNavHeight(h)
+    }
+
+    measureNav()
+    window.addEventListener('resize', measureNav)
+    window.addEventListener('orientationchange', measureNav)
+    return () => {
+      window.removeEventListener('resize', measureNav)
+      window.removeEventListener('orientationchange', measureNav)
+    }
+  }, [])
+
+  // Close chat when the mobile nav opens so they don't overlap
+  useEffect(() => {
+    const handleNavOpen = () => {
+      setIsOpen(false)
+      setNavIsOpen(true)
+    }
+    const handleNavClose = () => setNavIsOpen(false)
+
+    window.addEventListener('nav:opened', handleNavOpen)
+    window.addEventListener('nav:closed', handleNavClose)
+    return () => {
+      window.removeEventListener('nav:opened', handleNavOpen)
+      window.removeEventListener('nav:closed', handleNavClose)
+    }
+  }, [])
+
+  // Compute compact vs normal styles to keep S8+ and similar devices from covering too much
+  const getContainerStyles = () => {
+    const viewportOffsetTop = typeof window !== 'undefined' ? (window.visualViewport?.offsetTop || 0) : 0
+    const topOffset = navHeight + viewportOffsetTop + 12
+    // Make compact maxHeight smaller to avoid covering most of the screen on tall-density devices
+    const compactMaxHeightPx = navHeight + 180
+    const normalMaxHeight = 'calc(var(--vh, 1vh) * 100 - 140px)'
+
+    const compact = {
+      // bottom-sheet style for compact/mobile
+      left: '12px',
+      right: '12px',
+      bottom: `calc(env(safe-area-inset-bottom, 0px) + 8px)`,
+      // use a fixed-ish height (vh-aware) so different phones look consistent
+      height: 'min(55vh, calc(var(--vh, 1vh) * 60))',
+      maxHeight: `calc(var(--vh, 1vh) * 100 - ${navHeight + 32}px)`,
+      top: `auto`
+    }
+
+    const normal = {
+      bottom: 'calc(12px + env(safe-area-inset-bottom))',
+      maxHeight: normalMaxHeight
+    }
+
+    // Use mobile bottom-sheet style when on mobile OR compact small screens
+    return (isMobile || isCompact) ? compact : normal
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -58,15 +179,11 @@ const ChatBot = () => {
       {/* Floating Chat Button */}
       <motion.button
         onClick={() => setIsOpen(!isOpen)}
-        className='fixed bottom-6 right-6 z-50 w-16 h-16 bg-white rounded-full shadow-lg flex items-center justify-center transition-all duration-300 hover:shadow-xl border-2 border-purple-200'
+        className={`${isOpen || navIsOpen ? 'hidden' : 'fixed bottom-6 right-6'} z-50 w-16 h-16 bg-white rounded-full shadow-lg flex items-center justify-center transition-all duration-300 hover:shadow-xl border-2 border-purple-200`}
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.9 }}
       >
-        {isOpen ? (
-          <span className='text-gray-700 text-2xl font-bold'>✕</span>
-        ) : (
-          <Image src={assets.light100} alt='Mr. Light 100' className='w-12 h-12 object-contain' />
-        )}
+        <Image src={assets.light100} alt='Mr. Light 100' className='w-12 h-12 object-contain' />
       </motion.button>
 
       {/* Chat Window */}
@@ -77,10 +194,14 @@ const ChatBot = () => {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
             transition={{ duration: 0.2 }}
-            className='fixed bottom-20 left-4 right-4 z-50 sm:right-6 sm:left-auto sm:w-96 h-[450px] max-h-[80vh] bg-white rounded-2xl shadow-2xl flex flex-col overflow-hidden border border-gray-200'
+            className={
+              `z-[9999] ${isMobile || isCompact ? 'fixed left-3 right-3 rounded-t-2xl' : 'fixed inset-x-4 sm:right-6 sm:left-auto sm:w-96 rounded-2xl'} ` +
+              `${isMobile || isCompact ? 'mx-0' : ''} bg-white shadow-2xl flex flex-col overflow-hidden border border-gray-200`
+            }
+            style={{ ...getContainerStyles(), borderRadius: isMobile || isCompact ? '16px 16px 12px 12px' : undefined }}
           >
             {/* Header */}
-            <div className='bg-gradient-to-r from-purple-600 to-purple-800 text-white p-4 flex items-center justify-between'>
+            <div className='bg-gradient-to-r from-purple-600 to-purple-800 text-white p-4 flex items-center justify-between' style={isCompact ? { paddingTop: 'env(safe-area-inset-top, 12px)', minHeight: '56px' } : { minHeight: '56px' }}>
               <div className='flex items-center gap-3'>
                 <Image src={assets.light100} alt='Mr. Light 100' className='w-10 h-10 bg-white rounded-full p-1' />
                 <div>
@@ -97,7 +218,7 @@ const ChatBot = () => {
             </div>
 
             {/* Messages */}
-            <div className='flex-1 overflow-y-auto p-4 space-y-4 bg-gray-50'>
+            <div className='flex-1 overflow-y-auto p-4 space-y-4 bg-gray-50' style={{ paddingBottom: 'env(safe-area-inset-bottom, 16px)' }}>
               {messages.map((msg, idx) => (
                 <div
                   key={idx}
@@ -135,6 +256,7 @@ const ChatBot = () => {
                   type='text'
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
+                  onFocus={() => setTimeout(scrollToBottom, 300)}
                   placeholder='Ask about skills, projects...'
                   className='flex-1 px-4 py-2 border-2 border-gray-300 rounded-full outline-none focus:border-purple-400 transition-colors text-gray-900 text-sm'
                   disabled={isLoading}

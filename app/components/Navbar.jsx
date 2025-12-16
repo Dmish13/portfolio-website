@@ -13,10 +13,14 @@ const Navbar = () => {
     
     const openMenu = () =>{
         sideMenuRef.current.style.transform = 'translateX(-16rem)'
+        // notify other UI (e.g., chatbot) that nav opened
+        try { window.dispatchEvent(new CustomEvent('nav:opened')) } catch (e) {}
     }
 
     const closeMenu = () =>{
         sideMenuRef.current.style.transform = 'translateX(16rem)'
+        // notify other UI that nav closed
+        try { window.dispatchEvent(new CustomEvent('nav:closed')) } catch (e) {}
     }
 
     useEffect(()=>{
