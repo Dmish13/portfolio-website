@@ -129,7 +129,7 @@ export const workData = [
         title: 'SOAR USF Website',
         description: 'SOAR USF Chapter Website',
         bgImage: './soar.png',
-        link : 'https://usfsoar.framer.website/'
+        link : 'https://usfsoar.vercel.app/'
     },
 ]
 
