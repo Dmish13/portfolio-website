@@ -21,7 +21,7 @@ const Header = () => {
     <div className= 'flex flex-col sm:flex-row items-center gap-4 mt-4'>
         <motion.a initial = {{y:-20, opacity:0}} whileInView={{y:0,opacity:1}} transition = {{duration:0.6, delay:1}} href="#contact" className='btn'>
           Contact Me <Image src={assets.right_arrow_white} alt='' className='w-4'/></motion.a>
-        <motion.a  initial = {{y:-20, opacity:0}} whileInView={{y:0,opacity:1}} transition = {{duration:0.6, delay:1.2}} href="/D_MISHERKY_RESUME_2025.pdf" download className='btn'>
+        <motion.a  initial = {{y:-20, opacity:0}} whileInView={{y:0,opacity:1}} transition = {{duration:0.6, delay:1.2}} href="/D_MISHERKY_RESUME_2026.pdf" download className='btn'>
         My Resume <Image src={assets.download_icon} alt='' className='w-4 dark:invert'/></motion.a>
     </div>
     </div>
