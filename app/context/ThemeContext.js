@@ -5,7 +5,8 @@ import React, { createContext, useContext, useEffect, useState } from 'react'
 const ThemeContext = createContext()
 
 export function ThemeProvider({ children }) {
-  const [theme, setTheme] = useState('light')
+  // Initialize with undefined to prevent hydration mismatch
+  const [theme, setTheme] = useState(undefined)
   const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
@@ -29,7 +30,7 @@ export function ThemeProvider({ children }) {
   }, [])
 
   const toggleTheme = () => {
-    if (!mounted) return
+    if (!mounted || !theme) return
     
     const newTheme = theme === 'dark' ? 'light' : 'dark'
     console.log('Toggling from', theme, 'to', newTheme)
@@ -43,7 +44,8 @@ export function ThemeProvider({ children }) {
     }
   }
 
-  if (!mounted) {
+  // Prevent hydration mismatch by not rendering until mounted
+  if (!mounted || !theme) {
     return <>{children}</>
   }
 
