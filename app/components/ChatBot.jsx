@@ -17,6 +17,7 @@ const ChatBot = () => {
   const [navHeight, setNavHeight] = useState(0)
   const [isMobile, setIsMobile] = useState(false)
   const [navIsOpen, setNavIsOpen] = useState(false)
+  const [showPreview, setShowPreview] = useState(false)
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
@@ -115,6 +116,28 @@ const ChatBot = () => {
     }
   }, [])
 
+  // Show preview bubble on initial load
+  useEffect(() => {
+    const hasSeenPreview = sessionStorage.getItem('chatbot-preview-seen')
+    if (!hasSeenPreview) {
+      const timer = setTimeout(() => {
+        setShowPreview(true)
+      }, 1500) // Show after 1.5 seconds
+      return () => clearTimeout(timer)
+    }
+  }, [])
+
+  const handleClosePreview = () => {
+    setShowPreview(false)
+    sessionStorage.setItem('chatbot-preview-seen', 'true')
+  }
+
+  const handleOpenFromPreview = () => {
+    setShowPreview(false)
+    setIsOpen(true)
+    sessionStorage.setItem('chatbot-preview-seen', 'true')
+  }
+
   // Compute compact vs normal styles to keep S8+ and similar devices from covering too much
   const getContainerStyles = () => {
     const viewportOffsetTop = typeof window !== 'undefined' ? (window.visualViewport?.offsetTop || 0) : 0
@@ -179,12 +202,55 @@ const ChatBot = () => {
       {/* Floating Chat Button */}
       <motion.button
         onClick={() => setIsOpen(!isOpen)}
-        className={`${isOpen || navIsOpen ? 'hidden' : 'fixed bottom-6 right-6'} z-50 w-16 h-16 bg-white rounded-full shadow-lg flex items-center justify-center transition-all duration-300 hover:shadow-xl border-2 border-purple-200`}
+        className={`${isOpen || navIsOpen ? 'hidden' : 'fixed bottom-6 right-6'} z-50 w-16 h-16 bg-white rounded-full shadow-lg flex items-center justify-center transition-all duration-300 hover:shadow-xl border-2 border-purple-200 cursor-pointer`}
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.9 }}
       >
         <Image src={assets.light100} alt='Mr. Light 100' className='w-12 h-12 object-contain' />
       </motion.button>
+
+      {/* Preview Chat Bubble */}
+      <AnimatePresence>
+        {showPreview && !isOpen && !navIsOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: 20, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 20, scale: 0.95 }}
+            transition={{ duration: 0.3 }}
+            className='fixed bottom-24 right-6 z-50 bg-white rounded-2xl shadow-2xl p-4 max-w-xs border border-gray-200'
+          >
+            <div className='flex justify-between items-start mb-3'>
+              <div className='flex items-center gap-2'>
+                <Image src={assets.light100} alt='Mr. Light 100' className='w-8 h-8 bg-purple-100 rounded-full p-1' />
+                <h4 className='font-semibold text-gray-900 text-sm'>Mr. Light 100</h4>
+              </div>
+              <button
+                onClick={handleClosePreview}
+                className='text-gray-400 hover:text-gray-600 transition-colors cursor-pointer'
+              >
+                ✕
+              </button>
+            </div>
+            <p className='text-gray-700 text-sm mb-4 leading-relaxed'>
+              Hi! 👋 I'm your AI assistant. I can help you learn about Daniel's skills, projects, work experience, and education. Ask me anything!
+            </p>
+            <div className='flex gap-2'>
+              <button
+                onClick={handleClosePreview}
+                className='flex-1 px-3 py-2 text-sm text-gray-600 hover:text-gray-800 transition-colors cursor-pointer'
+              >
+                Maybe Later
+              </button>
+              <button
+                onClick={handleOpenFromPreview}
+                className='flex-1 btn text-sm cursor-pointer'
+              >
+                Let's Chat!
+              </button>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* Chat Window */}
       <AnimatePresence>
@@ -211,7 +277,7 @@ const ChatBot = () => {
               </div>
               <button
                 onClick={() => setIsOpen(false)}
-                className='text-white hover:bg-white/20 rounded-full w-8 h-8 flex items-center justify-center transition-colors'
+                className='text-white hover:bg-white/20 rounded-full w-8 h-8 flex items-center justify-center transition-colors cursor-pointer'
               >
                 ✕
               </button>
@@ -264,7 +330,7 @@ const ChatBot = () => {
                 <button
                   type='submit'
                   disabled={isLoading || !input.trim()}
-                  className='btn disabled:opacity-50 disabled:cursor-not-allowed'
+                  className='btn disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer'
                 >
                   Send
                 </button>
