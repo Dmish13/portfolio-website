@@ -122,7 +122,7 @@ const Contact = () => {
               whileTap={{ scale: 0.95 }}
               transition={{ duration: 0.3 }}
               type="submit"
-              className='btn mx-auto'
+              className='btn mx-auto cursor-pointer'
             >
               Submit Now
               <Image src={assets.right_arrow_white} alt='arrow' className='w-4' />

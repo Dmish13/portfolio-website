@@ -15,7 +15,7 @@ const Footer = () => {
       </div>
 
       <div className = 'text-center sm:flex items-center justify-between border-t border-gray-400 mx-[10%] mt-12 py-6'>
-        <p className='mb-4 sm:mb-0'>@ 2025 Daniel Misherky. All rights reserved.</p>
+        <p className='mb-4 sm:mb-0'>@ 2026 Daniel Misherky. All rights reserved.</p>
         <ul className='flex flex-wrap items-center gap-6 sm:gap-10 justify-center'>
             <li><a target = "_blank" className = "underline hover:text-gray-600 transition-colors" href = "https://www.instagram.com/misherdaniel/">Instagram</a></li>
             <li><a target = "_blank" className = "underline hover:text-gray-600 transition-colors" href = "https://github.com/Dmish13">Github</a></li>
