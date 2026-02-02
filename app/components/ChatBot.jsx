@@ -13,10 +13,12 @@ const ChatBot = () => {
   const [input, setInput] = useState('')
   const [isLoading, setIsLoading] = useState(false)
   const messagesEndRef = useRef(null)
+  const inputRef = useRef(null)
   const [isCompact, setIsCompact] = useState(false)
   const [navHeight, setNavHeight] = useState(0)
   const [isMobile, setIsMobile] = useState(false)
   const [keyboardOffset, setKeyboardOffset] = useState(0)
+  const [initialInnerHeight, setInitialInnerHeight] = useState(null)
   const [navIsOpen, setNavIsOpen] = useState(false)
   const [showPreview, setShowPreview] = useState(false)
 
@@ -38,13 +40,30 @@ const ChatBot = () => {
     // When viewport changes (keyboard opens/closes), update and scroll
     const onVResize = () => {
       setVh()
-      // compute keyboard offset (difference between layout viewport and visual viewport)
-      const kv = window.innerHeight - (window.visualViewport?.height || window.innerHeight)
-      setKeyboardOffset(kv)
+      // compute keyboard height as the area between layout bottom and visualViewport bottom
+      const vv = window.visualViewport
+      const vvHeight = vv?.height || window.innerHeight
+      const vvOffsetTop = vv?.offsetTop || 0
+      const keyboardH = Math.max(0, window.innerHeight - (vvOffsetTop + vvHeight))
+      // cap slightly to avoid extreme values and smooth small changes
+      const capped = Math.min(keyboardH, 520)
+      setKeyboardOffset(capped)
+      // if keyboard opened, try to keep the input visible by scrolling it into view
+      if (capped > 0) {
+        setTimeout(() => {
+          inputRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' })
+          // also make sure messages scroll to bottom
+          scrollToBottom()
+        }, 220)
+      }
       if (isOpen) setTimeout(scrollToBottom, 220)
     }
 
     setVh()
+    // capture the initial layout height once (used to prevent chat shrinking when keyboard opens)
+    try {
+      setInitialInnerHeight(window.innerHeight)
+    } catch (e) {}
     window.addEventListener('resize', setVh)
     window.addEventListener('orientationchange', setVh)
     if (window.visualViewport) window.visualViewport.addEventListener('resize', onVResize)
@@ -146,23 +165,29 @@ const ChatBot = () => {
   const getContainerStyles = () => {
     const viewportOffsetTop = typeof window !== 'undefined' ? (window.visualViewport?.offsetTop || 0) : 0
     const topOffset = navHeight + viewportOffsetTop + 12
-    // Make compact maxHeight smaller to avoid covering most of the screen on tall-density devices
-    const compactMaxHeightPx = navHeight + 180
-    const normalMaxHeight = 'calc(var(--vh, 1vh) * 100 - 140px)'
+
+    // Use the initialInnerHeight captured on mount to avoid resizing the chat
+    const baseHeight = initialInnerHeight || (typeof window !== 'undefined' ? window.innerHeight : null)
+    // Make compact maxHeight/height smaller to avoid covering most of the screen on tall-density devices
+    const compactHeight = baseHeight ? `${Math.min(baseHeight * 0.6, 520)}px` : '55vh'
+    const compactMaxHeightPx = baseHeight ? `${Math.max(220, baseHeight - (navHeight + 32))}px` : `calc(var(--vh, 1vh) * 100 - ${navHeight + 32}px)`
+    const normalMaxHeight = baseHeight ? `${Math.max(240, baseHeight - 140)}px` : 'calc(var(--vh, 1vh) * 100 - 140px)'
 
     const compact = {
       // bottom-sheet style for compact/mobile
       left: '12px',
       right: '12px',
-      bottom: `calc(${keyboardOffset}px + env(safe-area-inset-bottom, 0px) + 8px)`,
-      // use a fixed-ish height (vh-aware) so different phones look consistent
-      height: 'min(55vh, calc(var(--vh, 1vh) * 60))',
-      maxHeight: `calc(var(--vh, 1vh) * 100 - ${navHeight + 32}px)`,
+      // move chat above keyboard with extra buffer to keep send button visible
+      bottom: `calc(${keyboardOffset + 24}px + env(safe-area-inset-bottom, 0px) + 8px)`,
+      // fixed-ish height based on initial layout to avoid shrinking when keyboard opens
+      height: compactHeight,
+      maxHeight: compactMaxHeightPx,
       top: `auto`
     }
 
     const normal = {
-      bottom: `calc(${keyboardOffset}px + 12px + env(safe-area-inset-bottom))`,
+      // add 24px buffer to ensure send button isn't cut off
+      bottom: `calc(${keyboardOffset + 40}px + 12px + env(safe-area-inset-bottom))`,
       maxHeight: normalMaxHeight
     }
 
@@ -288,7 +313,9 @@ const ChatBot = () => {
             </div>
 
             {/* Messages */}
-            <div className='flex-1 overflow-y-auto p-4 space-y-4 bg-gray-50' style={{ paddingBottom: 'env(safe-area-inset-bottom, 16px)' }}>
+            <div
+              className='flex-1 overflow-y-auto p-4 space-y-4 bg-gray-50'
+            >
               {messages.map((msg, idx) => (
                 <div
                   key={idx}
@@ -320,13 +347,17 @@ const ChatBot = () => {
             </div>
 
             {/* Input */}
-            <form onSubmit={handleSubmit} className='p-4 bg-white border-t border-gray-200'>
+            <form
+              onSubmit={handleSubmit}
+              className='p-4 bg-white border-t border-gray-200'
+            >
               <div className='flex gap-2'>
                 <input
+                  ref={inputRef}
                   type='text'
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
-                  onFocus={() => setTimeout(scrollToBottom, 300)}
+                  onFocus={() => setTimeout(() => { scrollToBottom(); inputRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' }) }, 300)}
                   placeholder='Ask about skills, projects...'
                   className='flex-1 px-4 py-2 border-2 border-gray-300 rounded-full outline-none focus:border-purple-400 transition-colors text-gray-900 text-sm'
                   disabled={isLoading}
