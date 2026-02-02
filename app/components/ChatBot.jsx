@@ -16,6 +16,7 @@ const ChatBot = () => {
   const [isCompact, setIsCompact] = useState(false)
   const [navHeight, setNavHeight] = useState(0)
   const [isMobile, setIsMobile] = useState(false)
+  const [keyboardOffset, setKeyboardOffset] = useState(0)
   const [navIsOpen, setNavIsOpen] = useState(false)
   const [showPreview, setShowPreview] = useState(false)
 
@@ -37,6 +38,9 @@ const ChatBot = () => {
     // When viewport changes (keyboard opens/closes), update and scroll
     const onVResize = () => {
       setVh()
+      // compute keyboard offset (difference between layout viewport and visual viewport)
+      const kv = window.innerHeight - (window.visualViewport?.height || window.innerHeight)
+      setKeyboardOffset(kv)
       if (isOpen) setTimeout(scrollToBottom, 220)
     }
 
@@ -150,7 +154,7 @@ const ChatBot = () => {
       // bottom-sheet style for compact/mobile
       left: '12px',
       right: '12px',
-      bottom: `calc(env(safe-area-inset-bottom, 0px) + 8px)`,
+      bottom: `calc(${keyboardOffset}px + env(safe-area-inset-bottom, 0px) + 8px)`,
       // use a fixed-ish height (vh-aware) so different phones look consistent
       height: 'min(55vh, calc(var(--vh, 1vh) * 60))',
       maxHeight: `calc(var(--vh, 1vh) * 100 - ${navHeight + 32}px)`,
@@ -158,7 +162,7 @@ const ChatBot = () => {
     }
 
     const normal = {
-      bottom: 'calc(12px + env(safe-area-inset-bottom))',
+      bottom: `calc(${keyboardOffset}px + 12px + env(safe-area-inset-bottom))`,
       maxHeight: normalMaxHeight
     }
 
