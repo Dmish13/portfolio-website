@@ -231,7 +231,7 @@ const ChatBot = () => {
       {/* Floating Chat Button */}
       <motion.button
         onClick={() => setIsOpen(!isOpen)}
-        className={`${isOpen || navIsOpen ? 'hidden' : 'fixed bottom-6 right-6'} z-50 w-16 h-16 bg-white rounded-full shadow-lg flex items-center justify-center transition-all duration-300 hover:shadow-xl border-2 border-purple-200 cursor-pointer`}
+        className={`${isOpen || navIsOpen ? 'hidden' : 'fixed bottom-4 sm:bottom-6 right-4 sm:right-6'} z-50 w-16 h-16 bg-white rounded-full shadow-lg flex items-center justify-center transition-all duration-300 hover:shadow-xl border-2 border-purple-200 cursor-pointer`}
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.9 }}
       >
@@ -246,33 +246,33 @@ const ChatBot = () => {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
             transition={{ duration: 0.3 }}
-            className='fixed bottom-24 right-6 z-50 bg-white rounded-2xl shadow-2xl p-4 max-w-xs border border-gray-200'
+            className='fixed bottom-20 sm:bottom-24 right-4 sm:right-6 z-50 bg-white rounded-2xl shadow-2xl p-3 sm:p-4 max-w-xs w-5/6 sm:w-auto border border-gray-200'
           >
             <div className='flex justify-between items-start mb-3'>
               <div className='flex items-center gap-2'>
-                <Image src={assets.light100} alt='Mr. Light 100' className='w-8 h-8 bg-purple-100 rounded-full p-1' />
+                <Image src={assets.light100} alt='Mr. Light 100' className='w-8 h-8 bg-purple-100 rounded-full p-1 flex-shrink-0' />
                 <h4 className='font-semibold text-gray-900 text-sm'>Mr. Light 100</h4>
               </div>
               <button
                 onClick={handleClosePreview}
-                className='text-gray-400 hover:text-gray-600 transition-colors cursor-pointer'
+                className='text-gray-400 hover:text-gray-600 transition-colors cursor-pointer ml-2 flex-shrink-0'
               >
                 ✕
               </button>
             </div>
-            <p className='text-gray-700 text-sm mb-4 leading-relaxed'>
+            <p className='text-gray-700 text-xs sm:text-sm mb-4 leading-relaxed'>
               Hi! 👋 I'm your AI assistant. I can help you learn about Daniel's skills, projects, work experience, and education. Ask me anything!
             </p>
             <div className='flex gap-2'>
               <button
                 onClick={handleClosePreview}
-                className='flex-1 px-3 py-2 text-sm text-gray-600 hover:text-gray-800 transition-colors cursor-pointer'
+                className='flex-1 px-3 py-2 text-xs sm:text-sm text-gray-600 hover:text-gray-800 transition-colors cursor-pointer'
               >
                 Maybe Later
               </button>
               <button
                 onClick={handleOpenFromPreview}
-                className='flex-1 btn text-sm cursor-pointer'
+                className='flex-1 btn text-xs sm:text-sm cursor-pointer'
               >
                 Let's Chat!
               </button>
@@ -296,17 +296,17 @@ const ChatBot = () => {
             style={{ ...getContainerStyles(), borderRadius: isMobile || isCompact ? '16px 16px 12px 12px' : undefined }}
           >
             {/* Header */}
-            <div className='bg-gradient-to-r from-purple-600 to-purple-800 text-white p-4 flex items-center justify-between' style={isCompact ? { paddingTop: 'env(safe-area-inset-top, 12px)', minHeight: '56px' } : { minHeight: '56px' }}>
-              <div className='flex items-center gap-3'>
-                <Image src={assets.light100} alt='Mr. Light 100' className='w-10 h-10 bg-white rounded-full p-1' />
-                <div>
-                  <h3 className='font-semibold text-lg'>Mr. Light 100</h3>
+            <div className='bg-gradient-to-r from-purple-600 to-purple-800 text-white p-3 sm:p-4 flex items-center justify-between' style={isCompact ? { paddingTop: 'calc(env(safe-area-inset-top, 12px) + 12px)', minHeight: '56px' } : { minHeight: '56px' }}>
+              <div className='flex items-center gap-2 sm:gap-3 flex-1 min-w-0'>
+                <Image src={assets.light100} alt='Mr. Light 100' className='w-9 sm:w-10 h-9 sm:h-10 bg-white rounded-full p-1 flex-shrink-0' />
+                <div className='min-w-0'>
+                  <h3 className='font-semibold text-base sm:text-lg'>Mr. Light 100</h3>
                   <p className='text-xs text-purple-100'>AI Assistant</p>
                 </div>
               </div>
               <button
                 onClick={() => setIsOpen(false)}
-                className='text-white hover:bg-white/20 rounded-full w-8 h-8 flex items-center justify-center transition-colors cursor-pointer'
+                className='text-white hover:bg-white/20 rounded-full w-8 h-8 flex items-center justify-center transition-colors cursor-pointer flex-shrink-0 ml-2'
               >
                 ✕
               </button>
@@ -314,7 +314,7 @@ const ChatBot = () => {
 
             {/* Messages */}
             <div
-              className='flex-1 overflow-y-auto p-4 space-y-4 bg-gray-50'
+              className='flex-1 overflow-y-auto p-3 sm:p-4 space-y-4 bg-gray-50'
             >
               {messages.map((msg, idx) => (
                 <div
@@ -322,13 +322,13 @@ const ChatBot = () => {
                   className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}
                 >
                   <div
-                    className={`max-w-[80%] px-4 py-2 rounded-2xl ${
+                    className={`max-w-[85%] sm:max-w-[75%] px-3 sm:px-4 py-2 rounded-2xl text-sm sm:text-base ${
                       msg.role === 'user'
                         ? 'bg-purple-600 text-white rounded-br-none'
                         : 'bg-white text-gray-800 rounded-bl-none shadow-sm border border-gray-200'
                     }`}
                   >
-                    <p className='text-sm leading-relaxed'>{msg.content}</p>
+                    <p className='text-sm sm:text-base leading-relaxed'>{msg.content}</p>
                   </div>
                 </div>
               ))}
@@ -349,9 +349,9 @@ const ChatBot = () => {
             {/* Input */}
             <form
               onSubmit={handleSubmit}
-              className='p-4 bg-white border-t border-gray-200'
+              className='p-3 sm:p-4 bg-white border-t border-gray-200'
             >
-              <div className='flex gap-2'>
+              <div className='flex gap-2 sm:gap-3'>
                 <input
                   ref={inputRef}
                   type='text'
@@ -359,13 +359,13 @@ const ChatBot = () => {
                   onChange={(e) => setInput(e.target.value)}
                   onFocus={() => setTimeout(() => { scrollToBottom(); inputRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' }) }, 300)}
                   placeholder='Ask about skills, projects...'
-                  className='flex-1 px-4 py-2 border-2 border-gray-300 rounded-full outline-none focus:border-purple-400 transition-colors text-gray-900 text-sm'
+                  className='flex-1 px-3 sm:px-4 py-3 sm:py-2 border-2 border-gray-300 rounded-full outline-none focus:border-purple-400 transition-colors text-gray-900 text-sm h-10 sm:h-auto'
                   disabled={isLoading}
                 />
                 <button
                   type='submit'
                   disabled={isLoading || !input.trim()}
-                  className='btn disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer'
+                  className='btn disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer px-4 sm:px-6 h-10 sm:h-auto'
                 >
                   Send
                 </button>

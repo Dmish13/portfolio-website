@@ -79,9 +79,9 @@ const Contact = () => {
           whileInView={{ opacity: 1 }}
           transition={{ duration: 0.5, delay: 0.9 }}
           onSubmit={onSubmit}
-          className='max-w-2xl mx-auto bg-white dark:bg-gray-800 p-8 sm:p-10 rounded-2xl shadow-xl border border-gray-200 dark:border-gray-700'
+          className='max-w-2xl mx-auto bg-white dark:bg-gray-800 p-6 sm:p-8 md:p-10 rounded-2xl shadow-xl border border-gray-200 dark:border-gray-700'
         >
-          <div className='grid grid-cols-1 sm:grid-cols-2 gap-6 mb-6'>
+          <div className='grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 mb-6'>
             <motion.input
               initial={{ opacity: 0, x: -50 }}
               whileInView={{ opacity: 1, x: 0 }}
@@ -89,7 +89,7 @@ const Contact = () => {
               type="text"
               placeholder='Enter your name'
               required
-              className='p-4 outline-none border-2 rounded-lg bg-white text-gray-900 placeholder:text-gray-500 focus:ring-2 border-gray-300 focus:ring-purple-400 focus:border-purple-400 transition-all duration-300'
+              className='p-3 sm:p-4 outline-none border-2 rounded-lg bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 placeholder:text-gray-500 focus:ring-2 border-gray-300 dark:border-gray-600 focus:ring-purple-400 focus:border-purple-400 transition-all duration-300 h-11 sm:h-auto'
               name='name'
             />
 
@@ -100,7 +100,7 @@ const Contact = () => {
               type="email"
               placeholder='Enter your email'
               required
-              className='p-4 outline-none border-2 rounded-lg bg-white text-gray-900 placeholder:text-gray-500 focus:ring-2 border-gray-300 focus:ring-purple-400 focus:border-purple-400 transition-all duration-300'
+              className='p-3 sm:p-4 outline-none border-2 rounded-lg bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 placeholder:text-gray-500 focus:ring-2 border-gray-300 dark:border-gray-600 focus:ring-purple-400 focus:border-purple-400 transition-all duration-300 h-11 sm:h-auto'
               name='email'
             />
           </div>
@@ -112,7 +112,7 @@ const Contact = () => {
             rows='6'
             placeholder='Enter your message'
             required
-            className="w-full p-4 outline-none border-2 rounded-lg bg-white text-gray-900 placeholder:text-gray-500 mb-6 focus:ring-2 border-gray-300 focus:ring-purple-400 focus:border-purple-400 transition-all duration-300 resize-none"
+            className="w-full p-3 sm:p-4 outline-none border-2 rounded-lg bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 placeholder:text-gray-500 mb-6 focus:ring-2 border-gray-300 dark:border-gray-600 focus:ring-purple-400 focus:border-purple-400 transition-all duration-300 resize-none"
             name='message'
           ></motion.textarea>
 
@@ -132,7 +132,7 @@ const Contact = () => {
               <motion.p 
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
-                className='mt-6 text-center font-semibold text-lg text-white'
+                className='mt-6 text-center font-semibold text-base sm:text-lg text-white'
               >
                 {result}
               </motion.p>
