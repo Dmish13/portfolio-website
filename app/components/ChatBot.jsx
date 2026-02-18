@@ -3,6 +3,7 @@
 import React, { useState, useRef, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import Image from 'next/image'
+import ReactMarkdown from 'react-markdown'
 import { assets } from '@/assets/assets'
 
 const ChatBot = () => {
@@ -328,7 +329,45 @@ const ChatBot = () => {
                         : 'bg-white text-gray-800 rounded-bl-none shadow-sm border border-gray-200'
                     }`}
                   >
-                    <p className='text-sm sm:text-base leading-relaxed'>{msg.content}</p>
+                    {msg.role === 'user' ? (
+                      <p className='text-sm sm:text-base leading-relaxed'>{msg.content}</p>
+                    ) : (
+                      <div className='text-sm sm:text-base leading-relaxed markdown-content'>
+                        <ReactMarkdown
+                          components={{
+                            h1: ({node, ...props}) => <h1 className='text-lg font-bold mt-2 mb-1' {...props} />,
+                            h2: ({node, ...props}) => <h2 className='text-base font-bold mt-2 mb-1' {...props} />,
+                            h3: ({node, ...props}) => <h3 className='text-sm font-bold mt-2 mb-1' {...props} />,
+                            p: ({node, ...props}) => <p className='mb-1' {...props} />,
+                            ul: ({node, ...props}) => <ul className='list-disc list-inside mb-1 space-y-1' {...props} />,
+                            ol: ({node, ...props}) => <ol className='list-decimal list-inside mb-1 space-y-1' {...props} />,
+                            li: ({node, ...props}) => <li className='ml-1' {...props} />,
+                            strong: ({node, ...props}) => <strong className='font-bold' {...props} />,
+                            em: ({node, ...props}) => <em className='italic' {...props} />,
+                            code: ({node, inline, ...props}) => (
+                              inline ? (
+                                <code className='bg-gray-100 px-1 py-0.5 rounded text-xs font-mono' {...props} />
+                              ) : (
+                                <code className='bg-gray-100 block p-2 rounded text-xs font-mono mb-1' {...props} />
+                              )
+                            ),
+                            a: ({node, href, children, ...props}) => (
+                              <a
+                                href={href}
+                                target= '_blank'
+                                rel={href?.startsWith('/') || href?.startsWith('#') ? undefined : 'noopener noreferrer'}
+                                className='text-purple-600 hover:text-purple-800 underline font-medium transition-colors cursor-pointer'
+                                {...props}
+                              >
+                                {children}
+                              </a>
+                            ),
+                          }}
+                        >
+                          {msg.content}
+                        </ReactMarkdown>
+                      </div>
+                    )}
                   </div>
                 </div>
               ))}

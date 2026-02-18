@@ -77,7 +77,7 @@ const Contact = () => {
         <motion.form
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
-          transition={{ duration: 0.5, delay: 0.9 }}
+          transition={{ duration: 0.5, delay: 0.3 }}
           onSubmit={onSubmit}
           className='max-w-2xl mx-auto bg-white dark:bg-gray-800 p-6 sm:p-8 md:p-10 rounded-2xl shadow-xl border border-gray-200 dark:border-gray-700'
         >
@@ -85,7 +85,7 @@ const Contact = () => {
             <motion.input
               initial={{ opacity: 0, x: -50 }}
               whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.6, delay: 1.1 }}
+              transition={{ duration: 0.6, delay: 0.3 }}
               type="text"
               placeholder='Enter your name'
               required
@@ -96,7 +96,7 @@ const Contact = () => {
             <motion.input
               initial={{ opacity: 0, x: 50 }}
               whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.6, delay: 1.2 }}
+              transition={{ duration: 0.6, delay: 0.3 }}
               type="email"
               placeholder='Enter your email'
               required
@@ -108,7 +108,7 @@ const Contact = () => {
           <motion.textarea
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 1.3 }}
+            transition={{ duration: 0.6, delay: 0.3 }}
             rows='6'
             placeholder='Enter your message'
             required
