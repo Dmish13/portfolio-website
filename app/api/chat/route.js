@@ -17,6 +17,17 @@ TECHNICAL SKILLS:
 
 WORK/LEADERSHIP EXPERIENCE:
 
+Software Developer Intern - Booz Allen Hamilton (June 2026 - August 2026)
+- Selected as 1 of 140 interns nationwide from 10,000+ applicants for Booz Allen Hamilton’s Summer Games;
+collaborated in a 5-person Agile engineering team running weekly sprints to build a mission-planning analytics platform
+for live, virtual, and constructive (LVC) training environments, reducing mission reconstruction time by over 98%
+- Built a full data-processing pipeline that ingests DIS PDU mission logs recorded through DIScord up to 500
+MB, along with Environment Generator outputs captured via a custom C# MACE plugin; transformed these
+files into structured JSON to enable analysis, visualization, and integration with a local LLM for mission insight generation
+Developed a frontend that rendered graphs, tables, timelines, and geospatial maps, and integrated a local
+Gemma-4 LLM trained per-file to generate mission insights; managed workflow through Jira and collaborated via
+GitHub for version control, reviews, and CI/CD, allowing reconstruction of complex mission scenarios within 3 minutes
+
 Tech Team Volunteer - First Baptist Church of New Port Richey (October 2020 - Present)
 - Ran multimedia installations for live events for hundreds of attendees, which supported efforts that raised over $3,000
 - Delivered technical support to ensure optimal performance of AV equipment during services and special events
